@@ -21,11 +21,12 @@ AddEventHandler('onResourceStart', function(resourceName)
 end)
 
 AddEventHandler('onResourceStop', function(resourceName) 
-	if GetCurrentResourceName() == resourceName then
+    if GetCurrentResourceName() == resourceName then
         for k, v in pairs(Config.Zones) do
             exports['qb-target']:RemoveZone("burgershot"..k)
         end
-	end 
+        DeletePed(jobPed)
+    end 
 end)
 
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
@@ -37,6 +38,7 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     for k, v in pairs(Config.Zones) do
         exports['qb-target']:RemoveZone("burgershot"..k)
     end
+    DeletePed(jobPed)
 end)
 
 
@@ -59,7 +61,70 @@ function BurgerZones()
             distance = 1.5
         })
     end
+    if not DoesEntityExist(jobPed) then
+
+	RequestModel(Config.GaragePed) while not HasModelLoaded(Config.GaragePed) do Wait(0) end
+
+	jobPed = CreatePed(0, Config.GaragePed, Config.PedLocation, false, false)
+
+	SetEntityAsMissionEntity(jobPed, true, true)
+	SetPedFleeAttributes(jobPed, 0, 0)
+	SetBlockingOfNonTemporaryEvents(jobPed, true)
+	SetEntityInvincible(jobPed, true)
+	FreezeEntityPosition(jobPed, true)
+	loadAnimDict("amb@world_human_leaning@female@wall@back@holding_elbow@idle_a")        
+	TaskPlayAnim(jobPed, "amb@world_human_leaning@female@wall@back@holding_elbow@idle_a", "idle_a", 8.0, 1.0, -1, 01, 0, 0, 0, 0)
+
+	exports['qb-target']:AddTargetEntity(jobPed, { 
+	    options = {
+		{ 
+		    type = "client",
+		    event = "randol_burgershot:client:jobGarage",
+		    icon = "fa-solid fa-clipboard-check",
+		    label = "Garage",
+		    job = "burgershot"
+		},
+		{ 
+		    type = "client",
+		    event = "randol_burgershot:client:storeGarage",
+		    icon = "fa-solid fa-clipboard-check",
+		    label = "Store Vehicle",
+		    job = "burgershot"
+		},
+	    }, 
+	    distance = 1.5, 
+	})
+    end
 end
+
+CreateThread(function()
+    DecorRegister("bs_vehicle", 1)
+end)
+
+RegisterNetEvent('randol_burgershot:client:jobGarage', function(vehicle)
+    local vehicle = Config.Vehicle
+    local coords = Config.VehicleSpawn
+    QBCore.Functions.SpawnVehicle(vehicle, function(veh)
+        SetVehicleNumberPlateText(veh, "BURG"..tostring(math.random(1000, 9999)))
+        DecorSetFloat(veh, "bs_vehicle", 1)
+        SetEntityAsMissionEntity(veh, true, true)
+        TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
+        TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
+        SetVehicleEngineOn(veh, true, true)
+        CurrentPlate = QBCore.Functions.GetPlate(veh)
+        SetVehicleFuelLevel(veh, 100.0)
+    end, coords, true)
+end)
+
+RegisterNetEvent('randol_burgershot:client:storeGarage', function()
+    local veh = QBCore.Functions.GetClosestVehicle()
+    if DecorExistOn((veh), "bs_vehicle") then
+        QBCore.Functions.DeleteVehicle(veh)
+        QBCore.Functions.Notify("You returned the vehicle.", "success")
+    else
+        QBCore.Functions.Notify("This is not a work vehicle.", "error")
+    end
+end)
     
 RegisterNetEvent("randol_burgershot:client:frontTray", function()
     TriggerEvent("inventory:client:SetCurrentStash", "bsfoodtray")
