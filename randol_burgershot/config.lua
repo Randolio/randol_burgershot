@@ -1,5 +1,13 @@
 Config = {}
 
+Config.GaragePed = "u_m_m_bikehire_01"
+
+Config.PedLocation = vector4(-1170.84, -901.01, 12.8, 30.35)
+
+Config.VehicleSpawn = vector4(-1170.48, -892.93, 13.93, 27.23)
+
+Config.Vehicle = 'rumpo2'
+
 HungerFill = { -- How much they fill your hunger
     ["burger-bleeder"] = math.random(35, 45),
     ["burger-moneyshot"] = math.random(35, 45),
