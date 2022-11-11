@@ -41,6 +41,12 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     DeletePed(jobPed)
 end)
 
+function loadAnimDict(dict)
+    while (not HasAnimDictLoaded(dict)) do
+        RequestAnimDict(dict)
+        Wait(0)
+    end
+end
 
 function BurgerZones()
     for k, v in pairs(Config.Zones) do
