@@ -25,7 +25,7 @@ RegisterNetEvent('randol_burgershot:server:makeTorpedo', function()
     if not Player then return end
     Player.Functions.RemoveItem("burger-raw", 1)
     Player.Functions.RemoveItem("burger-bun", 1)
-    Player.Functions.AddItem("burger-bleeder", 3)
+    Player.Functions.AddItem("burger-torpedor", 3)
 end)
 
 RegisterNetEvent('randol_burgershot:server:makeHeartstopper', function()
