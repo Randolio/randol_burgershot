@@ -14,7 +14,11 @@ RegisterNetEvent('randol_burgershot:client:Eat', function(itemName)
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + HungerFill[itemName])
+        if Config.NewCore then
+    	    TriggerServerEvent("consumables:server:addHunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + HungerFill[itemName])
+        else
+            TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + HungerFill[itemName])
+        end
         TriggerServerEvent('hud:server:RelieveStress', math.random(5, 8))
     end)
 end)
@@ -29,7 +33,11 @@ RegisterNetEvent('randol_burgershot:client:Drink', function(itemName)
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ThirstFill[itemName])
+	if Config.NewCore then
+    	    TriggerServerEvent("consumables:server:addThirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ThirstFill[itemName])
+        else
+            TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ThirstFill[itemName])
+        end
         TriggerServerEvent('hud:server:RelieveStress', math.random(5, 8))
     end)
 end)
