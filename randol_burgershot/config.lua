@@ -1,5 +1,7 @@
 Config = {}
 
+Config.NewCore = true
+
 Config.GaragePed = "u_m_m_bikehire_01"
 
 Config.PedLocation = vector4(-1170.84, -901.01, 12.8, 30.35)
