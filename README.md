@@ -9,7 +9,7 @@
 ESX/QB supported with bridge along with ox/qb inventory.
 
 # For QBCore users, Add this to your @qb-core/shared/jobs.lua. ESX users will have to implement the job themselves.
-```
+```lua
 burgershot = {
     label = "Burgershot",
     defaultDuty = true,
@@ -25,7 +25,7 @@ burgershot = {
 ```
 
 # For qb-inventory users, Add to your qb-core/shared/items.lua
-```
+```lua
 ["burger-bleeder"] 				 = {["name"] = "burger-bleeder", 			 	["label"] = "Bleeder", 					["weight"] = 250, 		["type"] = "item", 		["image"] = "bs_the-bleeder.png", 			["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = "."},
 ["burger-moneyshot"] 			 = {["name"] = "burger-moneyshot", 			 	["label"] = "Moneyshot", 				["weight"] = 300, 		["type"] = "item", 		["image"] = "bs_money-shot.png", 			["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = "."},
 ["burger-torpedo"] 				 = {["name"] = "burger-torpedo", 			 	["label"] = "Torpedo", 					["weight"] = 310, 		["type"] = "item", 		["image"] = "bs_torpedo.png", 				["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = "."},
@@ -45,7 +45,7 @@ burgershot = {
 
 ```
 # For ox inventory users, add to your items.lua 
-```
+```lua
 ["burger-sodasyrup"] = {
     label = "Soda Syrup", weight = 125, stack = true, close = true, degrade = 5760, description = "An Ingredient", client = { image = "bs_ingredients_hfcs.png", }
 },
