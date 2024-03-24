@@ -6,6 +6,12 @@
 
 * [ox_lib](https://github.com/overextended/ox_lib/releases/)
 
+## Optional Addons
+
+* [Randolio: Billing](https://github.com/Randolio/randol_billing/)
+* [Randolio: Multijob](https://github.com/Randolio/randol_multijob/)
+
+
 ESX/QB supported with bridge along with ox/qb inventory.
 
 ## For QBCore users, Add this to your @qb-core/shared/jobs.lua. ESX users will have to implement the job themselves.
