@@ -16,13 +16,14 @@ EndTextCommandSetBlipName(bs_blip)
 local function toggleEmotes(bool, emote)
     if bool then
         local doEmote = Config.Emotes[emote]
-        lib.requestAnimDict(doEmote.dict, 2000)
-        lib.requestModel(doEmote.prop, 2000)
+        lib.requestAnimDict(doEmote.dict)
+        lib.requestModel(doEmote.prop)
         if doEmote.prop then
             emoteProp = CreateObject(doEmote.prop, 0.0, 0.0, 0.0, true, true, false)
             AttachEntityToEntity(emoteProp, cache.ped, GetPedBoneIndex(cache.ped, doEmote.bone), doEmote.coords.x, doEmote.coords.y, doEmote.coords.z, doEmote.rot.x, doEmote.rot.y, doEmote.rot.z, true, true, false, true, 1, true)
         end
         TaskPlayAnim(cache.ped, doEmote.dict, doEmote.anim, 8.0, 8.0, -1, 49, 0, 0, 0, 0)
+        RemoveAnimDict(doEmote.dict)
         SetModelAsNoLongerNeeded(doEmote.prop)
     else
         ClearPedTasks(cache.ped)
