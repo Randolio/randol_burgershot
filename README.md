@@ -1,5 +1,7 @@
 # Randolio: Burgershot Job (Rewritten 19/03/2024)
 
+**You have permission to use this in your server and edit for your personal needs but are not allowed to redistribute.**
+
 ## Link to free MLO used: https://gta5mod.net/gta-5-mods/maps/mlo-gta-iv-burgershot-interior-sp-fivem-v2-0/
 
 ## Requirements
