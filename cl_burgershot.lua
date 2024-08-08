@@ -2,6 +2,7 @@ local burgerZones = {}
 local Config = lib.require('config')
 local ox_inv = GetResourceState('ox_inventory') == 'started'
 local emoteProp
+local oxtarget = GetResourceState('ox_target') == 'started'
 
 local bs_blip = AddBlipForCoord(Config.BlipCoords)
 SetBlipSprite(bs_blip, 106)
@@ -37,23 +38,45 @@ end
 
 function createJobZones()
     for k, v in pairs(Config.Zones) do
-        exports['qb-target']:AddCircleZone('burgerShotZone'..k, v.coords, v.radius,{ 
-            name= 'burgerShotZone'..k, 
-            debugPoly = false, 
-            useZ=true, 
-        }, {
-            options = {
-                { event = v.event, icon = v.icon, label = v.label, job = v.job, },
-            },
-            distance = 1.5
-        })
-        burgerZones[#burgerZones+1] = 'burgerShotZone'..k
+        if oxtarget then
+            burgerZones[#burgerZones+1] = exports.ox_target:addSphereZone({
+                coords = vec3(v.coords.x, v.coords.y, v.coords.z),
+                radius = v.radius,
+                debug = false,
+                options = {
+                    {
+                        icon = v.icon,
+                        label = v.label,
+                        onSelect = function()
+                            TriggerEvent(v.event)
+                        end,
+                        groups = v.job,
+                    }
+                }
+            })
+        else
+            exports['qb-target']:AddCircleZone('burgerShotZone'..k, v.coords, v.radius,{ 
+                name= 'burgerShotZone'..k, 
+                debugPoly = false, 
+                useZ=true, 
+            }, {
+                options = {
+                    { event = v.event, icon = v.icon, label = v.label, job = v.job, },
+                },
+                distance = 1.5
+            })
+            burgerZones[#burgerZones+1] = 'burgerShotZone'..k
+        end
     end
 end
 
 function removeJobZones()
     for i = 1, #burgerZones do
-        exports['qb-target']:RemoveZone(burgerZones[i])
+        if oxtarget then
+            exports.ox_target:removeZone(burgerZones[i])
+        else
+            exports['qb-target']:RemoveZone(burgerZones[i])
+        end
     end
     table.wipe(burgerZones)
 end
