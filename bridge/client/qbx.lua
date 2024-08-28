@@ -1,12 +1,11 @@
-if GetResourceState('qb-core') ~= 'started' or GetResourceState('qbx_core') == 'started' then return end
+if GetResourceState('qbx_core') ~= 'started' then return end
 
-local QBCore = exports['qb-core']:GetCoreObject()
 local Config = lib.require('config')
 
 local PlayerData = {}
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    PlayerData = QBCore.Functions.GetPlayerData()
+    PlayerData = exports.qbx_core:GetPlayerData()
     createJobZones()
 end)
 
@@ -21,7 +20,7 @@ end)
 
 AddEventHandler('onResourceStart', function(res)
     if GetCurrentResourceName() ~= res or not LocalPlayer.state.isLoggedIn then return end
-    PlayerData = QBCore.Functions.GetPlayerData()
+    PlayerData = exports.qbx_core:GetPlayerData()
     createJobZones()
 end)
 
@@ -30,7 +29,7 @@ function hasPlyLoaded()
 end
 
 function DoNotification(text, nType)
-    QBCore.Functions.Notify(text, nType)
+    exports.qbx_core:Notify(text, nType)
 end
 
 function handleStatus(status, item)
