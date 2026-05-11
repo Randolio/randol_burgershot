@@ -9,12 +9,17 @@
 * [ox_lib](https://github.com/overextended/ox_lib/releases/)
 
 ## Optional Addons
-
 * [Randolio: Billing](https://github.com/Randolio/randol_billing/)
 * [Randolio: Multijob](https://github.com/Randolio/randol_multijob/)
 
-
 ESX/QB supported with bridge along with ox/qb inventory.
+
+## Config Options
+- [config-smallo](https://gta5mod.net/gta-5-mods/maps/mlo-gta-iv-burgershot-interior-sp-fivem-v2-0/)
+- [config-uniqx](https://www.gta5-mods.com/maps/mlo-burgershot-2023-add-on-sp-fivem)
+- [config-gabz](https://fivem.gabzv.com/package/5665525)
+
+Replace 'config.lua' with any of the above in the 'config options' folder - make sure you rename to just config
 
 ## For QBCore users, Add this to your @qb-core/shared/jobs.lua. ESX users will have to implement the job themselves.
 ```lua
